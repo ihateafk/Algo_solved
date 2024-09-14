@@ -2,13 +2,13 @@ import heapq
 
 def next_position(case, node, t):
     if case == 0:
-        node *= 2
-    elif case == 1:
         node -= 1
         t += 1
-    else:
+    elif case == 1:
         node += 1
         t += 1
+    else:
+        node *= 2
     return node, t
 
 def bfs(st, ed):
@@ -16,10 +16,10 @@ def bfs(st, ed):
     heapq.heappush(q, (0, st))
     while q:
         time, position = heapq.heappop(q)
+        if position == ed:
+            return time
         for x in range(3):
             new_pos, new_t = next_position(x, position, time)
-            if new_pos == ed:
-                return new_t
             if new_pos < 0 or new_pos > 100000: continue
             if new_t >= visited[new_pos]: continue
             visited[new_pos] = new_t
