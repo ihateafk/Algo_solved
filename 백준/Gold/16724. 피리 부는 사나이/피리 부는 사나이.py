@@ -14,7 +14,6 @@ def trace_route(x, y):
 
 N, M = map(int, input().split())
 mapp = [input() for _ in range(N)]
-group = [0]
 visited = [[0]*M for _ in range(N)]
 dir = {
     "U": (-1, 0),
@@ -29,7 +28,6 @@ for x in range(N):
     for y in range(M):
         if visited[x][y] != 0: continue
         route_num += 1
-        group.append(0)
         trace_route(x, y)
 
 print(cnt)
