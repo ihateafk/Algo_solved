@@ -6,8 +6,10 @@ def find_route(line):
     return number
 
 def union(a, b):
+    global cnt
     route_a, route_b = find_route(a), find_route(b)
     if route_a == route_b:
+        cnt += 1
         return
     group[route_b] = route_a
     return
@@ -21,7 +23,6 @@ def trace_route(x, y):
             x = dx
             y = dy
             continue
-        if visited[dx][dy] == route_num: return
         union(visited[dx][dy], visited[x][y])
         return
 
@@ -35,16 +36,13 @@ dir = {
     "L": (0, -1),
     "R": (0, 1)
 }
+
 route_num = 0
+cnt = 0
 for x in range(N):
     for y in range(M):
         if visited[x][y] != 0: continue
         route_num += 1
         trace_route(x, y)
-
-cnt = 0
-for x in range(1, route_num+1):
-    if group[x] == 0:
-        cnt += 1
 
 print(cnt)
