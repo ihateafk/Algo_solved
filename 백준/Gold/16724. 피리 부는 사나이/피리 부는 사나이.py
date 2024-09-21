@@ -1,20 +1,5 @@
-def find_route(line):
-    if group[line] == 0:
-        return line
-    number = find_route(group[line])
-    group[line] = number
-    return number
-
-def union(a, b):
-    global cnt
-    route_a, route_b = find_route(a), find_route(b)
-    if route_a == route_b:
-        cnt += 1
-        return
-    group[route_b] = route_a
-    return
-
 def trace_route(x, y):
+    global cnt
     while True:
         visited[x][y] = route_num
         dx = x+dir[mapp[x][y]][0]
@@ -23,12 +8,13 @@ def trace_route(x, y):
             x = dx
             y = dy
             continue
-        union(visited[dx][dy], visited[x][y])
+        if visited[dx][dy] == route_num:
+            cnt += 1
         return
 
 N, M = map(int, input().split())
 mapp = [input() for _ in range(N)]
-group = [0]*(N*M+1)
+group = [0]
 visited = [[0]*M for _ in range(N)]
 dir = {
     "U": (-1, 0),
@@ -43,6 +29,7 @@ for x in range(N):
     for y in range(M):
         if visited[x][y] != 0: continue
         route_num += 1
+        group.append(0)
         trace_route(x, y)
 
 print(cnt)
