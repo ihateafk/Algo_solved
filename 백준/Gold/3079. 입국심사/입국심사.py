@@ -1,7 +1,9 @@
 N, M = map(int, input().split())
 period = [int(input()) for _ in range(N)]
-period.sort()
 min_period = period[0]
+for p in period:
+    if p < min_period:
+        min_period = p
 
 start = min_period
 end = M * min_period
